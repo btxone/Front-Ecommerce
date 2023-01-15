@@ -216,6 +216,11 @@ const reducer = (state = initialState, action) => {
                 filteredReviews: filter
             })
         };
+        case 'CHECKOUT':
+          return {
+            ...state,
+            redirectMP: action.payload
+          };
 
     default:
       return state;
