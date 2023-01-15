@@ -1,11 +1,16 @@
+// import dotenv from 'dotenv';
 import axios from "axios";
 
 // import { ALL_CLOTHES, CATEGORIES, CLOTHES_DETAIL, SEARCH_CLOTHES, CREATE_PRODUCT, ORDER_BY, CREATE_P_REVIEW, GET_REVIEWS, REVIEWS_FILTER, } from "./cases";
 
+// dotenv.config();
+
+const URL = "https://back-ecommerce.up.railway.app";
+
 export function searchClothes(name) {
   return async function (dispatch) {
     try {
-      const clothes = await axios(`http://localhost:9000/products?name=${name}`);
+      const clothes = await axios(`${URL}/products?name=${name}`);
       dispatch({
         type: 'SEARCH_CLOTHES',
         payload: clothes.data,
@@ -19,7 +24,7 @@ export function searchClothes(name) {
 export const allClothes = () => {
   return async function (dispatch) {
     try {
-      const allClothes = await axios('http://localhost:9000/products')
+      const allClothes = await axios(`${URL}/products`)
       dispatch({
         type: 'ALL_CLOTHES',
         payload: allClothes.data
@@ -33,7 +38,7 @@ export const allClothes = () => {
 export const clothesDetail = (id) => {
   return async function (dispatch) {
     try {
-      const clothesDetail = await axios(`http://localhost:9000/products/${id}`)
+      const clothesDetail = await axios(`${URL}/products/${id}`)
       dispatch({
         type: 'CLOTHES_DETAIL',
         payload: clothesDetail.data
@@ -47,7 +52,7 @@ export const clothesDetail = (id) => {
 export const categories = () => {
   return async function (dispatch) {
     try {
-      const category = await axios('http://localhost:9000/category')
+      const category = await axios(`${URL}/category`)
       dispatch({
         type: 'CATEGORIES',
         payload: category.data
@@ -61,8 +66,8 @@ export const categories = () => {
 export const createProduct = (product) => {
   return async function (dispatch) {
     try {
-      await axios.post('http://localhost:9000/products', product)
-      const allClothes = await axios('http://localhost:9000/products')
+      await axios.post(`${URL}/products`, product)
+      const allClothes = await axios(`${URL}/products`)
       dispatch({
         type: 'CREATE_PRODUCT',
         payload: allClothes.data
@@ -87,7 +92,7 @@ export function filter(payload) {
 export const allUsers = () => {
   return async function (dispatch) {
     try {
-      const allUsers = await axios('http://localhost:9000/user')
+      const allUsers = await axios(`${URL}/user`)
       dispatch({
         type: 'ALL_USERS',
         payload: allUsers.data
@@ -101,8 +106,8 @@ export const allUsers = () => {
 export const updateUserStatus = (id, payload) => {
   return async function (dispatch) {
     try {
-      const update = await axios.put(`http://localhost:9000/user/${id}`, payload)
-      const allUsers = await axios('http://localhost:9000/user')
+      const update = await axios.put(`${URL}/user/${id}`, payload)
+      const allUsers = await axios(`${URL}/user`)
       dispatch({
         type: 'UPDATE_USER_STATUS',
         payload: allUsers.data
@@ -118,7 +123,7 @@ export const updateUserStatus = (id, payload) => {
 export function createProductReview(payload){
   return async function(dispatch){
     try {
-      let json = await axios.post('http://localhost:9000/reviews', payload)
+      let json = await axios.post(`${URL}/reviews`, payload)
       dispatch({
           type: 'CREATE_P_REVIEW',
           payload: json.data
@@ -133,7 +138,7 @@ export function reviewsFilter(payload) {
 }
 export function getPReviews() {
   return async function (dispatch) {
-      const allData = await axios.get('http://localhost:9000/reviews')
+      const allData = await axios.get(`${URL}/reviews`)
       return dispatch({ type: 'GET_REVIEWS', payload: allData.data })
   }
 }
@@ -168,7 +173,7 @@ export const removeCartProduct = (prod) => {
 export const checkout = () => {
   return async function (dispatch) {
     try {
-      const compra = await axios('http://localhost:9000/generar')
+      const compra = await axios(`${URL}/generar`)
       dispatch({
         type: 'CHECKOUT',
         payload: compra.data
