@@ -71,13 +71,25 @@ const reducer = (state = initialState, action) => {
       switch(action.payload) {
         case 'AZ': return {
           ...state,
-          productsOrdered: [...state.allClothes].sort((a, b) => a.name.localeCompare(b.name)),
-          productsFiltered: [...state.allClothes].sort((a, b) => a.name.localeCompare(b.name))
+          productsOrdered: [...state.allClothes].sort(function (a, b){
+            if (a.name > b.name) return 1
+            else return -1
+        }),
+          productsFiltered: [...state.allClothes].sort(function (a, b){
+            if (a.name > b.name) return 1
+            else return -1
+        })
         }
         case 'ZA': return {
           ...state,
-          productsOrdered: [...state.allClothes].sort((a, b) => b.name.localeCompare(a.name)),
-          productsFiltered: [...state.allClothes].sort((a, b) => b.name.localeCompare(a.name))
+          productsOrdered: [...state.allClothes].sort(function(a, b) {
+            if (a.name < b.name) return 1;
+           else return -1
+          }),
+          productsFiltered: [...state.allClothes].sort(function(a, b) {
+            if (a.name < b.name) return 1;
+           else return -1
+          })
         }
         default: return {
           ...state,
@@ -107,6 +119,14 @@ const reducer = (state = initialState, action) => {
           case 'L': return {
             ...state,
             productsFiltered: [...state.productsFiltered].filter((p) => p.sizes.includes('L'))
+          }
+          case 'S': return {
+            ...state,
+            productsFiltered: [...state.productsFiltered].filter((p) => p.sizes.includes('S'))
+          }
+          case 'M': return {
+            ...state,
+            productsFiltered: [...state.productsFiltered].filter((p) => p.sizes.includes('M'))
           }
           default: return {
             ...state
